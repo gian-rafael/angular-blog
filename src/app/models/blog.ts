@@ -1,13 +1,12 @@
 import { User } from "./user";
 
-export type ApprovalStatus = "pending" | "approved" | "rejected";
+export type ApprovalStatus = "drafted" | "pending" | "approved" | "rejected";
 
 export interface Blog {
   id: number;
   userId: number;
   title: string;
   content: string;
-  contentPreview: string;
   imgContentUrl?: string;
   approvalStatus: ApprovalStatus;
   timestamp: Date;

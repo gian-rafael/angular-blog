@@ -9,15 +9,16 @@ import { ApiModule } from "../api/api.module";
 import { RouterModule, Routes } from "@angular/router";
 import { BlogViewerComponent } from "./components/blog-viewer/blog-viewer.component";
 import { BlogResolve } from "./resolves/blog.resolve";
-import { BlogComponent } from './blog.component';
+import { BlogComponent } from "./blog.component";
 import { CreateBlogContainerComponent } from "./containers/create-blog-container/create-blog-container.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { BlogCrumbsComponent } from './components/blog-crumbs/blog-crumbs.component';
+import { BlogCrumbsComponent } from "./components/blog-crumbs/blog-crumbs.component";
 
 const routes: Routes = [
   {
     path: "",
     component: BlogComponent,
+    runGuardsAndResolvers: "always",
     children: [
       {
         path: "",
@@ -52,7 +53,7 @@ const routes: Routes = [
     HttpClientModule,
     ApiModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     BlogContainerComponent,

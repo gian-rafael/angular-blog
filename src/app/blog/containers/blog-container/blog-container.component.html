@@ -1,11 +1,13 @@
-<section class="offset-md-2 col-12 col-md-8 p-4 p-md-0">
-  <div class="d-flex justify-content-between align-items-center py-2">
+<section class="offset-lg-2 col-12 col-lg-8 px-4 pt-2 p-lg-0">
+  <div class="d-flex justify-content-between align-items-center py-3 py-lg-2">
     <blog-crumbs [data]="crumbs"></blog-crumbs>
     <a [routerLink]="['/blog', 'new']" class="btn btn-outline-dark"><i class="fa-solid fa-add mr-2"></i>Create Post</a>
   </div>
-  <div>
+  <div class="row p-0">
     <ng-container *ngFor="let blog of blogs$ | async">
-      <blog-item [blog]="blog"></blog-item>
+      <div class="col-12">
+        <blog-item [blog]="blog" [titleLength]="maxTitleLength | async"></blog-item>
+      </div>
     </ng-container>
   </div>
 </section>

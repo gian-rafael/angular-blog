@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { take } from "rxjs/operators";
 
 import { AuthService } from "../../auth.service";
+import { ToastService } from "src/app/toast.service";
 
 @Component({
   selector: "app-login",
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {}

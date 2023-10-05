@@ -3,12 +3,14 @@ import { RouterModule, Routes } from "@angular/router";
 import { AppGuard } from "./guards/app.guard";
 import { LoginComponent } from "./auth/containers/login/login.component";
 import { AuthGuard } from "./auth/guard/auth.guard";
+import { DashboardGuard } from "./dashboard/dashboard.guard";
 
 const routes: Routes = [
   {
     path: "auth",
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
+    runGuardsAndResolvers: "always",
     children: [
       {
         path: "",
@@ -22,8 +24,15 @@ const routes: Routes = [
     ],
   },
   {
+    path: "dashboard",
+    canLoad: [DashboardGuard],
+    loadChildren: () =>
+      import("./dashboard/dashboard.module").then((mod) => mod.DashboardModule),
+  },
+  {
     path: "",
     canLoad: [AppGuard],
+    canActivate: [AppGuard],
     loadChildren: () =>
       import("./blog/blog.module").then((mod) => mod.BlogModule),
   },

@@ -32,7 +32,8 @@
       <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="remember">
       <label class="custom-control-label" for="customCheck1">Remember Me</label>
     </div>
-    <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3" [disabled]="form.invalid || submitting">Login</button>
+    <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3"
+      [disabled]="form.invalid || submitting">Login</button>
     <div *ngIf="invalidUserCredentials" class="alert alert-danger text-center" role="alert">
       Invalid user credentials entered.
     </div>

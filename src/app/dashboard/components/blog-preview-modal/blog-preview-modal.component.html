@@ -1,0 +1,28 @@
+<div class="modal fade" tabindex="-1" [id]="id">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Blog Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0 container" *ngIf="blog">
+        <div class="blog-image-container" *ngIf="displayImageContent(blog.imgContentUrl)">
+          <img [src]="blog.imgContentUrl" [alt]="blog.title" class="blog-image">
+        </div>
+        <div class="container px-4" [class.mt-4]="displayImageContent(blog.imgContentUrl)">
+          <h1>{{ blog.title | titlecase }}</h1>
+          <p class="text-primary m-0">By: {{ (blog.user?.displayName | titlecase)|| blog.user?.username }}</p>
+          <p class="text-faded-dark">{{ blog.timestamp | date: 'shortDate' }}</p>
+          <hr />
+          <div [innerHTML]="renderBlogContent(blog.content)"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onReject()" class="btn btn-danger">Reject</button>
+        <button type="button" (click)="onApprove()" class="btn btn-success">Approve</button>
+      </div>
+    </div>
+  </div>
+</div>

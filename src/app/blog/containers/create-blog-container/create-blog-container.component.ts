@@ -4,6 +4,7 @@ import { Blog } from "src/app/models/blog";
 import { BlogService } from "../../blog.service";
 import { take } from "rxjs/operators";
 import { createBlogCrumbsFromRoot } from "../../components/blog-crumbs/blog-crumbs.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-create-blog-container",
@@ -34,7 +35,6 @@ export class CreateBlogContainerComponent {
 
   get invalidImageUrl() {
     const control = this.form.get("imgContentUrl");
-    console.log(control.errors);
     return (
       control.hasError("invalidUrl") &&
       control.touched &&
@@ -44,7 +44,11 @@ export class CreateBlogContainerComponent {
 
   crumbs = createBlogCrumbsFromRoot();
 
-  constructor(private fb: FormBuilder, private blogService: BlogService) {
+  constructor(
+    private fb: FormBuilder,
+    private blogService: BlogService,
+    private router: Router
+  ) {
     this.crumbs.push({
       title: "Create New Blog",
       link: "#",
@@ -56,7 +60,7 @@ export class CreateBlogContainerComponent {
     let validUrl = true;
 
     try {
-      if(url.trim() !== "") {
+      if (url.trim() !== "") {
         new URL(url);
       }
     } catch (_) {
@@ -67,22 +71,27 @@ export class CreateBlogContainerComponent {
   }
 
   onSubmit(type: "CREATE" | "DRAFT") {
-    const { title, content, imgContentUrl }: Partial<Blog> = this.form.value;
+    const blog: Partial<Blog> = this.form.value;
 
     switch (type) {
       case "CREATE":
         const newBlog: Partial<Blog> = {
+          ...blog,
           approvalStatus: "pending",
-          content,
-          title,
-          imgContentUrl,
           timestamp: new Date(),
         };
         this.blogService.createBlog(newBlog).pipe(take(1)).subscribe();
-        // TODO: Navigate to home and show message that blog has been created successfully
         break;
       case "DRAFT":
+        const tempBlog: Partial<Blog> = {
+          ...blog,
+          approvalStatus: "drafted",
+          timestamp: new Date(),
+        };
+        this.blogService.saveBlogAsDraft(tempBlog).pipe(take(1)).subscribe();
         break;
     }
+    // TODO: Navigate to home and show message that blog has been created successfully
+    this.router.navigate(["/"]);
   }
 }

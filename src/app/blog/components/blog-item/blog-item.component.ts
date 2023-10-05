@@ -1,18 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Blog } from 'src/app/models/blog';
+import { Component, Input } from "@angular/core";
+import { Blog } from "src/app/models/blog";
 
 @Component({
-  selector: 'blog-item',
-  templateUrl: './blog-item.component.html',
-  styleUrls: ['./blog-item.component.scss']
+  selector: "blog-item",
+  templateUrl: "./blog-item.component.html",
+  styleUrls: ["./blog-item.component.scss"],
 })
-export class BlogItemComponent implements OnInit {
-
+export class BlogItemComponent {
   @Input() blog: Blog;
+  @Input() titleLength: number = 15;
 
-  constructor() {}
-
-  ngOnInit() {
+  displayImageContent(url: string): boolean {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {}
+    return false;
   }
-
 }
