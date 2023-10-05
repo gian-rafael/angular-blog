@@ -1,0 +1,41 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "gian_thiam",
+      "email": "gian.thiam01@gmail.com",
+      "password": "testpassword",
+      "role": "user"
+    }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "My First Blog",
+      "content": "# Hello World\nthis is my new blog\n***\nWelcomelmao\n##test header",
+      "contentPreview": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, sit, asperiores corporis officiis similique odit perferendis quia rerum",
+      "imgContentUrl": "https://staticg.sportskeeda.com/editor/2023/09/0a332-16955900739969-1920.jpg?w=840",
+      "approvalStatus": "approved",
+      "timestamp": 25354617625
+    },
+    {
+      "approvalStatus": "pending",
+      "content": "## Hey What is up\n***\nThis is my first time writing a blog.",
+      "title": "My 2nd Blog",
+      "imgContentUrl": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630",
+      "timestamp": "2023-10-04T08:15:35.107Z",
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "approvalStatus": "pending",
+      "content": "Writing this all to support my homies.\n\nLove yall take care.",
+      "title": "Another Blog",
+      "imgContentUrl": "",
+      "timestamp": "2023-10-04T08:54:33.079Z",
+      "userId": 1,
+      "id": 3
+    }
+  ]
+}

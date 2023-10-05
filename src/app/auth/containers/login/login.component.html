@@ -1,0 +1,43 @@
+<div class="container-fluid d-flex justify-content-center align-items-center">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()"
+    class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-start align-items-stretch">
+    <h1 class="h1 mb-3">Login</h1>
+    <div class="form-group m-0">
+      Username or Email
+      <input type="text" formControlName="user" class="form-control" [class.border-danger]="invalidUserInput">
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="invalidUserInput" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <div class="form-group m-0">
+      Password
+      <div class="input-group">
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+          [class.border-danger]="invalidPasswordInput">
+        <div class="input-group-append">
+          <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowPassword(true)"
+            (mouseleave)="toggleShowPassword(false)" (mouseup)="toggleShowPassword(false)"
+            [class.border-danger]="invalidPasswordInput">
+            <i class="fa-solid fa-eye text-primary"></i>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="invalidPasswordInput" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <div class="custom-control custom-checkbox mb-3">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="remember">
+      <label class="custom-control-label" for="customCheck1">Remember Me</label>
+    </div>
+    <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3" [disabled]="form.invalid || submitting">Login</button>
+    <div *ngIf="invalidUserCredentials" class="alert alert-danger text-center" role="alert">
+      Invalid user credentials entered.
+    </div>
+  </form>
+  <!-- <div style="position: absolute;">
+    {{ form.value | json }}
+  </div> -->
+</div>

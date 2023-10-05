@@ -1,0 +1,8 @@
+<a class="card mb-2 text-decoration-none blog-item" [routerLink]="['/blog', blog.id]">
+  <!-- <img class="card-img-top" src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" /> -->
+  <div class="card-body">
+    <h1 class="card-title text-dark">{{ blog.title }}</h1>
+    <span class="text-faded-dark">{{ blog.timestamp | date: "shortDate" }}</span>
+    <p class="text-dark">{{ blog.contentPreview || blog.content }}</p>
+  </div>
+</a>

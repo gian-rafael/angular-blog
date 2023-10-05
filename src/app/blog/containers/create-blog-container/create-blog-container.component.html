@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="py-2">
+      <blog-crumbs [data]="crumbs"></blog-crumbs>
+    </div>
+    <form [formGroup]="form">
+      <h1>Create a new Blog</h1>
+      <div class="form-group m-0">
+        Blog Title<span class="text-danger">*</span>
+        <input type="text" formControlName="title" class="form-control" [class.border-danger]="requiredTitle || titleMaxLength">
+        <div class="d-flex justify-content-end">
+          <span>&#8203;</span>
+          <span *ngIf="requiredTitle" class="text-danger">This field is required</span>
+          <span *ngIf="titleMaxLength" class="text-danger">Exceeded maximum length for title</span>
+        </div>
+      </div>
+      <div class="form-group m-0">
+        Cover Image
+        <input type="text" formControlName="imgContentUrl" class="form-control" [class.border-danger]="invalidImageUrl" placeholder="Enter Valid Image URL">
+        <div class="d-flex justify-content-end">
+          <span>&#8203;</span>
+          <span *ngIf="invalidImageUrl" class="text-danger">Invalid Image URL.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        Blog Content<span class="text-danger">*</span>
+        <textarea formControlName="content" class="form-control" rows="10" [class.border-danger]="requiredContent">
+        </textarea>
+        <div class="d-flex justify-content-end">
+          <span>&#8203;</span>
+          <span *ngIf="requiredContent" class="text-danger">This field is required</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button [disabled]="form.invalid" (click)="onSubmit('DRAFT')" class="btn btn-outline-dark mr-2" type="button">Save As Draft</button>
+        <button [disabled]="form.invalid" (click)="onSubmit('CREATE')" class="btn btn-dark" type="submit">Create Blog</button>
+      </div>
+    </form>
+    <!-- {{form.value | json}} -->
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<article class="container-fluid p-0 pb-4">
+  <ng-container *ngIf="(blog$ | async) as blog; else loading">
+    <div class="blog-image-container" *ngIf="displayImageContent(blog.imgContentUrl)">
+      <img [src]="blog.imgContentUrl" [alt]="blog.title" class="blog-image">
+    </div>
+    <div class="container mt-4">
+      <blog-crumbs [data]="crumbs"></blog-crumbs>
+      <div>
+        <h1>{{ blog.title | titlecase }}</h1>
+        <p class="text-primary m-0">By: {{ (blog.user?.name | titlecase)|| blog.user?.username }}</p>
+        <p class="text-faded-dark">{{ blog.timestamp | date: 'shortDate' }}</p>
+        <hr />
+        <div [innerHTML]="renderBlogContent(blog.content)"></div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <div class="d-flex p-0 justify-content-center align-items-center mt-5">
+      <div class="spinner-border"></div>
+    </div>
+  </ng-template>
+</article>
