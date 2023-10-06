@@ -23,7 +23,11 @@ export class AuthService {
     return of(!!this.user);
   }
 
-  constructor(private http: HttpClient, private router: Router, @Inject(USER_API) private API_ENDPOINT: string) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    @Inject(USER_API) private API_ENDPOINT: string
+  ) {
     const session = localStorage.getItem("user");
     if (session) {
       this.user = JSON.parse(session);
@@ -40,8 +44,7 @@ export class AuthService {
         observe: "response",
       })
       .pipe(
-        catchError((response) => {
-          console.log(response);
+        catchError(() => {
           return of(false);
         }),
         switchMap((response: HttpResponse<User[]>) =>

@@ -9,6 +9,7 @@ import { Blog } from "src/app/models/blog";
 export class BlogItemComponent {
   @Input() blog: Blog;
   @Input() titleLength: number = 15;
+  @Input() page: "blogs" | "drafts" = "blogs";
 
   displayImageContent(url: string): boolean {
     try {
@@ -16,5 +17,5 @@ export class BlogItemComponent {
       return true;
     } catch (error) {}
     return false;
-  }
+  } 
 }

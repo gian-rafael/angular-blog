@@ -8,7 +8,6 @@ import { AuthService } from "../auth/auth.service";
 })
 export class AppGuard implements CanActivate, CanLoad {
   canActivate() {
-    console.log("called");
     if (!this.authService.isLoggedIn) {
       this.router.navigate(["/auth"]);
       return false;
@@ -23,7 +22,6 @@ export class AppGuard implements CanActivate, CanLoad {
 
   canLoad() {
     if (!this.authService.isLoggedIn) {
-      console.log("navigate to auth");
       this.router.navigate(["/auth"]);
       return false;
     } else {

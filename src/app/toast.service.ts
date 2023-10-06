@@ -15,6 +15,7 @@ export interface ToastData {
 export class ToastService {
   private toastId: string;
   private get toast() {
+    // @ts-ignore
     return $(`#${this.toastId}`);
   }
 
@@ -22,7 +23,7 @@ export class ToastService {
     title: "",
     description: "",
     type: "info",
-  });
+  } as ToastData);
   get toastData$() {
     return this.toastData;
   }

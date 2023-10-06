@@ -1,16 +1,35 @@
 <div class="container-fluid p-0">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <p class="navbar-brand m-0" href="#">My Blog</p>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand m-0" routerLink="/">My Blog</a>
+    <div class="d-none d-lg-block w-100"></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#blogNav" aria-controls="blogNav"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div class="collapse navbar-collapse" id="blogNav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" style="cursor: pointer;" (click)="logout()">
+        <li class="nav-item" data-toggle="collapse"
+          [attr.data-target]="['lg', 'xl', 'xxl'].includes(breakpoint | async) ? '' : '#blogNav'">
+          <a class="nav-link nav-link-active d-flex justify-content-start justify-content-lg-center align-items-center m-0 text-nowrap"
+            style="cursor: pointer;" routerLink="/home">
+            <i class="fa-solid fa-house mr-2"></i>
+            <span style="padding-bottom: 2px;">Home</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="collapse"
+          [attr.data-target]="['lg', 'xl', 'xxl'].includes(breakpoint | async) ? '' : '#blogNav'">
+          <a class="nav-link d-flex justify-content-start justify-content-lg-center align-items-center m-0 text-nowrap"
+            style="cursor: pointer;" routerLink="/drafts">
+            <i class="fa-solid fa-scroll mr-2"></i>
+            <span style="padding-bottom: 2px;">Saved Drafts</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="collapse"
+          [attr.data-target]="['lg', 'xl', 'xxl'].includes(breakpoint | async) ? '' : '#blogNav'">
+          <a class="nav-link d-flex justify-content-start justify-content-lg-center align-items-center m-0"
+            style="cursor: pointer;" (click)="logout()">
             <i class="fa-solid fa-power-off mr-2"></i>
-            Logout
+            <span style="padding-bottom: 2px;">Logout</span>
           </a>
         </li>
       </ul>

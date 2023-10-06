@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
 import { BlogService } from "src/app/blog/blog.service";
 import { Blog } from "src/app/models/blog";
+import { ToastService } from "src/app/toast.service";
 import { ViewportService } from "src/app/viewport.service";
 
 type DashboardTab = "pending" | "rejected";
@@ -14,14 +15,18 @@ type DashboardTab = "pending" | "rejected";
 })
 export class DashboardContainerComponent implements OnInit, AfterViewInit {
   blogs$: Observable<Blog[]>;
-  breakpoint$: Observable<string>
+  breakpoint$: Observable<string>;
 
   readonly previewModalId = "previewModal";
   currentBlog: Blog = null;
 
   currentTab: DashboardTab = "pending";
 
-  constructor(private blogService: BlogService, private vp: ViewportService) {}
+  constructor(
+    private blogService: BlogService,
+    private vp: ViewportService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
     this.blogs$ = this.blogService.fetchPendingBlogs();
@@ -46,11 +51,21 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   handleApprove(blog: Blog) {
     this.blogService.approveBlog(blog).pipe(take(1)).subscribe();
     this.closeModal();
+    this.toastService.showMessage({
+      type: "success",
+      description: "Blog has been approved successfully.",
+      title: "Approved",
+    });
   }
 
   handleReject(blog: Blog) {
     this.blogService.rejectBlog(blog).pipe(take(1)).subscribe();
     this.closeModal();
+    this.toastService.showMessage({
+      type: "success",
+      description: "Rejected",
+      title: "Blog has been rejected successfully.",
+    });
   }
 
   private closeModal() {

@@ -6,7 +6,7 @@
   <div class="row p-0">
     <ng-container *ngIf="blogs$ | async as blogs">
       <div class="col-12" *ngFor="let blog of blogs">
-        <blog-item [blog]="blog" [titleLength]="maxTitleLength | async"></blog-item>
+        <blog-item [blog]="blog" [titleLength]="maxTitleLength | async" page="drafts"></blog-item>
       </div>
       <h4 class="text-faded-dark w-100 text-center mt-4" *ngIf="blogs.length === 0">There are no blogs to display.</h4>
     </ng-container>

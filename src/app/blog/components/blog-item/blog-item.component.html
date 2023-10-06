@@ -1,12 +1,19 @@
-<a class="card mb-2 text-decoration-none blog-item" [routerLink]="['/blog', blog.id]">
+<a class="card mb-2 text-decoration-none blog-item"
+  [routerLink]="page === 'blogs' ? ['/blog', blog.id] : ['/drafts', 'edit', blog.id]">
   <div class="card-body p-0">
     <div class="h-100 d-flex justify-content-between align-items-stretch">
       <div class="d-flex flex-column justify-content-around p-3 flex-fill">
         <h3 class="text-dark">{{ blog.title.length > titleLength ? blog.title.substring(0, titleLength).trim() + "..." :
           blog.title }}</h3>
         <h6 class="m-0">
-          <span class="text-faded-dark">By: <span class="text-primary">{{ blog.user.displayName || blog.user.username }}</span> on</span>
-          <span class="text-faded-dark"> {{ blog.timestamp | date: "shortDate" }}</span>
+          <ng-container *ngIf="page === 'blogs'; else drafts">
+            <span class="text-faded-dark">By: <span class="text-primary">{{ blog.user.displayName || blog.user.username
+                }}</span> on</span>
+            <span class="text-faded-dark"> {{ blog.timestamp | date: "shortDate" }}</span>
+          </ng-container>
+          <ng-template #drafts>
+            <span class="text-faded-dark">Last Saved: {{ blog.timestamp | date: "shortDate" }}</span>
+          </ng-template>
         </h6>
       </div>
       <div class="blog-item__image-container" *ngIf="displayImageContent(blog.imgContentUrl)">

@@ -1,25 +1,26 @@
-import { Component, OnInit } from "@angular/core";
+import { Observable, of } from "rxjs";
+import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 
-import { Observable, of } from "rxjs";
-import { switchMap, pluck, defaultIfEmpty } from "rxjs/operators";
-
-import { createBlogCrumbsFromRoot } from "../../components/blog-crumbs/blog-crumbs.component";
+import { pluck, defaultIfEmpty, switchMap } from "rxjs/operators";
 import { ViewportService } from "src/app/viewport.service";
 
 @Component({
-  selector: "blog-container",
-  templateUrl: "./blog-container.component.html",
-  styleUrls: ["./blog-container.component.scss"],
+  selector: "app-blog-drafts-container",
+  templateUrl: "./blog-drafts-container.component.html",
+  styleUrls: ["./blog-drafts-container.component.scss"],
 })
-export class BlogContainerComponent implements OnInit {
+export class BlogDraftsContainerComponent {
   blogs$ = this.route.data.pipe(pluck("blogs"), defaultIfEmpty([]));
-
-  crumbs = createBlogCrumbsFromRoot();
-
   maxTitleLength: Observable<number>;
 
+  crumbs = [
+    {
+      link: "/drafts",
+      title: "Drafts",
+    },
+  ];
   constructor(
     private route: ActivatedRoute,
     private title: Title,

@@ -1,12 +1,13 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { Observable, of, BehaviorSubject } from "rxjs";
-import { switchMap, tap, map } from "rxjs/operators";
+import { Observable, of, BehaviorSubject, EMPTY } from "rxjs";
+import { switchMap, tap, map, catchError } from "rxjs/operators";
 
 import { Blog, BlogWithAuthor } from "../models/blog";
 import { BLOG_API } from "../api/api.module";
 import { AuthService } from "../auth/auth.service";
+import { ToastService } from "../toast.service";
 
 @Injectable({
   providedIn: "root",
@@ -17,14 +18,17 @@ export class BlogService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
+    private toastService: ToastService,
     @Inject(BLOG_API) private API_ENDPOINT: string
   ) {}
 
   fetchBlogs(): Observable<Blog[]> {
     return (
       this.http
-        // .get<Blog[]>(`${this.API_ENDPOINT}?approvalStatus=approved`)
-        .get<Blog[]>(`${this.API_ENDPOINT}?_expand=user`)
+        .get<Blog[]>(
+          `${this.API_ENDPOINT}?approvalStatus=approved&_expand=user`
+        )
+        // .get<Blog[]>(`${this.API_ENDPOINT}?_expand=user`)
         .pipe(
           switchMap((blogs) =>
             of(
@@ -33,7 +37,42 @@ export class BlogService {
                 timestamp: new Date(blog.timestamp),
               }))
             )
-          )
+          ),
+          catchError(() => {
+            this.toastService.showMessage({
+              title: "Error",
+              description: "An error has occured while retrieving blogs.",
+              type: "error",
+            });
+            return EMPTY;
+          })
+        )
+    );
+  }
+
+  fetchDraftedBlogs(): Observable<Blog[]> {
+    const { id } = this.authService.user;
+    return (
+      this.http
+        .get<Blog[]>(`${this.API_ENDPOINT}?approvalStatus=drafted&userId=${id}`)
+        // .get<Blog[]>(`${this.API_ENDPOINT}?_expand=user`)
+        .pipe(
+          switchMap((blogs) =>
+            of(
+              blogs.map((blog) => ({
+                ...blog,
+                timestamp: new Date(blog.timestamp),
+              }))
+            )
+          ),
+          catchError(() => {
+            this.toastService.showMessage({
+              title: "Error",
+              description: "An error has occured while retrieving blogs.",
+              type: "error",
+            });
+            return EMPTY;
+          })
         )
     );
   }
@@ -76,25 +115,14 @@ export class BlogService {
     );
   }
 
-  // return this.http
-  //   .get<Blog[]>(`${this.API_ENDPOINT}?_expand=user&approvalStatus=pending`)
-  //   .pipe(
-  //     map((blogs) =>
-  //       blogs.map((blog) => ({
-  //         ...blog,
-  //         timestamp: new Date(blog.timestamp),
-  //       }))
-  //     )
-  //   );
-
   createBlog(blog: Partial<Blog>): Observable<Blog> {
     blog.userId = this.authService.user.id;
     return this.http.post<Blog>(this.API_ENDPOINT, blog);
   }
 
-  saveBlogAsDraft(blog: Partial<Blog>): Observable<any> {
-    blog.approvalStatus = "drafted";
-    return;
+  submitDraft(blog: Partial<Blog>): Observable<Blog> {
+    const id = blog.id;
+    return this.http.patch<Blog>(`${this.API_ENDPOINT}/${id}`, blog);
   }
 
   approveBlog(blog: Blog): Observable<any> {

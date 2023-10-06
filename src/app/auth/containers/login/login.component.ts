@@ -52,6 +52,11 @@ export class LoginComponent implements OnInit {
       .subscribe((success) => {
         if (success) {
           this.router.navigate(["/"]);
+          this.toastService.showMessage({
+            title: "Login",
+            description: "Login Success",
+            type: "success",
+          });
         } else {
           this.invalidUserCredentials = true;
         }

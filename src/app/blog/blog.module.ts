@@ -13,12 +13,18 @@ import { BlogComponent } from "./blog.component";
 import { CreateBlogContainerComponent } from "./containers/create-blog-container/create-blog-container.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BlogCrumbsComponent } from "./components/blog-crumbs/blog-crumbs.component";
+import { BlogDraftsContainerComponent } from "./containers/blog-drafts-container/blog-drafts-container.component";
+import { BlogDraftsResolve } from "./resolves/blog-drafts.resolve";
+import { BlogGuard } from "./guards/blog.guard";
+import { BlogDraftResolve } from "./resolves/blog-draft.resolve";
+import { CreateBlogGuard } from "./containers/create-blog-container/create-blog.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: BlogComponent,
     runGuardsAndResolvers: "always",
+    canActivateChild: [BlogGuard],
     children: [
       {
         path: "",
@@ -33,8 +39,24 @@ const routes: Routes = [
         },
       },
       {
+        path: "drafts",
+        component: BlogDraftsContainerComponent,
+        resolve: {
+          blogs: BlogDraftsResolve,
+        },
+      },
+      {
+        path: "drafts/edit/:id",
+        component: CreateBlogContainerComponent,
+        canDeactivate: [CreateBlogGuard],
+        resolve: {
+          draft: BlogDraftResolve,
+        },
+      },
+      {
         path: "blog/new",
         component: CreateBlogContainerComponent,
+        canDeactivate: [CreateBlogGuard],
       },
       {
         path: "blog/:id",
@@ -62,8 +84,16 @@ const routes: Routes = [
     BlogComponent,
     CreateBlogContainerComponent,
     BlogCrumbsComponent,
+    BlogDraftsContainerComponent,
   ],
   exports: [BlogContainerComponent],
-  providers: [BlogListResolve, BlogResolve],
+  providers: [
+    BlogListResolve,
+    BlogResolve,
+    BlogDraftsResolve,
+    BlogDraftResolve,
+    BlogGuard,
+    CreateBlogGuard,
+  ],
 })
 export class BlogModule {}
