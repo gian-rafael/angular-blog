@@ -21,6 +21,7 @@ import { CreateBlogGuard } from "./containers/create-blog-container/create-blog.
 import { MyBlogsContainerComponent } from "./containers/my-blogs-container/my-blogs-container.component";
 import { MyBlogsResolve } from "./resolves/my-blogs.resolve";
 import { DeleteConfirmationComponent } from './components/delete-confirmation/delete-confirmation.component';
+import { BlogContentHelpComponent } from './components/blog-content-help/blog-content-help.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,7 @@ const routes: Routes = [
     BlogDraftsContainerComponent,
     MyBlogsContainerComponent,
     DeleteConfirmationComponent,
+    BlogContentHelpComponent,
   ],
   exports: [BlogContainerComponent],
   providers: [

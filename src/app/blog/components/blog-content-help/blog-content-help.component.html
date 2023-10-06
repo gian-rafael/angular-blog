@@ -1,0 +1,120 @@
+<div class="modal fade" tabindex="-1" [id]="modalId">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Blog Content Guide</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>The contents of the modal support markdown which allows user to customize how their content is presented.</p>
+
+        <h4>Basic Syntax</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Markdown Syntax</th>
+              <th>Preview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Heading</td>
+              <td><code># H1<br>## H2<br>### H3</code></td>
+              <td>
+                <h1>H1</h1>
+                <h2>H2</h2>
+                <h3>H3</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>Bold</td>
+              <td><code>**bold text**</code></td>
+              <td>
+                <b>bold text</b>
+              </td>
+            </tr>
+            <tr>
+              <td>Italic</td>
+              <td><code>*italicized text*</code></td>
+              <td>
+                <em>italicized text</em>
+              </td>
+            </tr>
+            <tr>
+              <td>Blockquote</td>
+              <td><code>&gt; blockquote</code></td>
+              <td>
+                <blockquote>
+                  blockquote
+                </blockquote>
+              </td>
+            </tr>
+            <tr>
+              <td>Ordered List</td>
+              <td><code>1. First item<br>2. Second item<br>3. Third item<br></code></td>
+              <td>
+                <ol>
+                  <li>First Item</li>
+                  <li>Second Item</li>
+                  <li>Third Item</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td>Unordered List</td>
+              <td><code>- First item<br>- Second item<br>- Third item<br></code></td>
+              <td>
+                <ul>
+                  <li>First Item</li>
+                  <li>Second Item</li>
+                  <li>Third Item</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Code</td>
+              <td><code>`code`</code></td>
+              <td>
+                <code>code</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Horizontal Rule</td>
+              <td><code>---</code></td>
+              <td>
+                <hr>
+              </td>
+            </tr>
+            <tr>
+              <td>Link</td>
+              <td><code>[title](https://www.example.com)</code></td>
+              <td>
+                <a href="#">title</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Image</td>
+              <td><code>![placeholder](favicon.ico)</code></td>
+              <td>
+                <img src="favicon.ico" alt="placeholder" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          HTML is also supported to format your blog's content.
+        </p>
+        <p>
+          You may visit <a href="https://www.markdownguide.org/cheat-sheet/">Markdown Guide</a> for advanced markdown
+          syntax.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

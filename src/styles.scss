@@ -93,3 +93,17 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
   background: rgba(255, 255, 255, 0.6);
   color: $dark !important;
 }
+
+.help-icon {
+  border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background-color: $primary;
+  color: $light;
+}

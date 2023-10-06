@@ -27,7 +27,14 @@
         </div>
       </div>
       <div class="form-group">
-        Blog Content<span class="text-danger">*</span>
+        <div class="d-flex justify-content-start align-items-center">
+          <p class="m-0 mr-2">
+            Blog Content<span class="text-danger">*</span>
+          </p>
+          <button class="help-icon" (click)="showHelpModal()">
+            <i class="fa-solid fa-question"></i>
+          </button>
+        </div>
         <textarea formControlName="content" class="form-control" rows="10" [class.border-danger]="requiredContent">
         </textarea>
         <div class="d-flex justify-content-end">
@@ -36,7 +43,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-end">
-        <button (click)="onDiscard()" class="btn btn-danger mr-2" type="button">Discard {{ mode !== 'editDraft' ?
+        <button (click)="onDiscard()" class="btn btn-danger mr-2" type="button">Discard {{ mode === 'create' ?
           '' :
           'Changes'
           }}</button>
@@ -55,3 +62,4 @@
     <!-- {{form.value | json}} -->
   </div>
 </div>
+<blog-content-help [modalId]="helpModalId"></blog-content-help>

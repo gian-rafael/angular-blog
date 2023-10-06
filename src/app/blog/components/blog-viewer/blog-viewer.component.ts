@@ -3,10 +3,10 @@ import { TitleCasePipe } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, Title } from "@angular/platform-browser";
 
-import { of, EMPTY } from "rxjs";
-import { pluck, take, tap, switchMap, catchError } from "rxjs/operators";
-
+import { of } from "rxjs";
+import { pluck, take, tap, switchMap } from "rxjs/operators";
 import { Remarkable } from "remarkable";
+
 import { Blog } from "src/app/models/blog";
 import { createBlogCrumbsFromRoot } from "../blog-crumbs/blog-crumbs.component";
 import { AuthService } from "src/app/auth/auth.service";
@@ -60,7 +60,7 @@ export class BlogViewerComponent implements OnInit {
     private router: Router,
     private toastService: ToastService
   ) {
-    this.parser = new Remarkable();
+    this.parser = new Remarkable({ html: true });
   }
 
   ngOnInit() {
@@ -95,7 +95,7 @@ export class BlogViewerComponent implements OnInit {
       .subscribe(() => {
         // @ts-ignore
         $(`#${this.modalId}`).modal("hide");
-        
+
         this.router.navigate(["/"]);
         this.toastService.showMessage({
           title: "Deleted",

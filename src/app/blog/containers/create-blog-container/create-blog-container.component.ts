@@ -50,6 +50,12 @@ export class CreateBlogContainerComponent implements OnInit {
   forDiscard: boolean = false;
   submitted: boolean = false;
 
+  readonly helpModalId: string= 'blogHelpModal';
+
+  get helpModal() {
+    return $(`#${this.helpModalId}`);
+  }
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -189,5 +195,10 @@ export class CreateBlogContainerComponent implements OnInit {
     } else {
       this.router.navigate(["/drafts"]);
     }
+  }
+
+  showHelpModal() {
+    // @ts-ignore
+    this.helpModal.modal('show');
   }
 }
