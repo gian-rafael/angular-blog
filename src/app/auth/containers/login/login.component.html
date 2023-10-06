@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex justify-content-center align-items-center">
+<div class="container-fluid d-flex justify-content-center align-items-center py-3 px-0 m-0">
   <form [formGroup]="form" (ngSubmit)="onSubmit()"
     class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-start align-items-stretch">
     <h1 class="h1 mb-3">Login</h1>
@@ -34,5 +34,6 @@
     </div>
     <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3"
       [disabled]="form.invalid || submitting">Login</button>
+    <p class="m-0 text-left">Don't have an account? <a [routerLink]="['/auth', 'register']" class="text-primary">Create an Account</a></p>
   </form>
 </div>

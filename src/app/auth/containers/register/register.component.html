@@ -1,9 +1,9 @@
-<div class="container-fluid d-flex justify-content-center align-items-center">
+<div class="container-fluid d-flex justify-content-center align-items-center py-3 px-0 m-0">
   <form [formGroup]="form" (ngSubmit)="onSubmit()"
     class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-start align-items-stretch">
     <h1 class="h1 mb-3">Register</h1>
     <div class="form-group m-0">
-      Email Address
+      Email Address<span class="text-danger">*</span>
       <input type="text" formControlName="email" class="form-control"
         [class.border-danger]="requiredEmail || invalidEmailFormat || emailTaken">
       <div class="d-flex justify-content-end">
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="form-group m-0">
-      Username
+      Username<span class="text-danger">*</span>
       <input type="text" formControlName="username" class="form-control"
         [class.border-danger]="requiredUsername || takenUsername">
       <div class="d-flex justify-content-end">
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="form-group m-0">
-      Display Name
+      Display Name<span class="text-danger">*</span>
       <input type="text" formControlName="displayName" class="form-control" [class.border-danger]="requiredDisplayName">
       <div class="d-flex justify-content-end">
         <span>&#8203;</span>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="form-group m-0">
-      Password
+      Password<span class="text-danger">*</span>
       <div class="input-group">
         <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
           [class.border-danger]="invalidPasswordInput">
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="form-group m-0">
-      Confirm Password
+      Confirm Password<span class="text-danger">*</span>
       <div class="input-group">
         <input [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
           [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
@@ -71,11 +71,7 @@
     </div>
     <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3"
       [disabled]="form.invalid || submitting">Create Account</button>
-    <!-- <div *ngIf="invalidUserCredentials" class="alert alert-danger text-center" role="alert">
-      Invalid user credentials entered.
-    </div> -->
+    <p class="m-0 text-left">Already have an account? <a [routerLink]="['/auth', 'login']" class="text-primary">Login
+        Here</a></p>
   </form>
-  <!-- <div style="position: absolute;">
-    {{ form.value | json }}
-  </div> -->
 </div>

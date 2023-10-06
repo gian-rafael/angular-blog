@@ -9,7 +9,7 @@ import { ApiModule } from "../api/api.module";
 import { RegisterComponent } from './containers/register/register.component';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ApiModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ApiModule, RouterModule],
   declarations: [LoginComponent, RegisterComponent],
 })
 export class AuthModule {}
