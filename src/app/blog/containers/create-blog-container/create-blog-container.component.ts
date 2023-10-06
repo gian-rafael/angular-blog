@@ -112,6 +112,7 @@ export class CreateBlogContainerComponent implements OnInit {
           approvalStatus: "pending",
           timestamp: new Date(),
         };
+        delete newBlog["user"];
         if (this.mode === "create") {
           this.blogService.createBlog(newBlog).pipe(take(1)).subscribe();
         } else {
@@ -131,6 +132,7 @@ export class CreateBlogContainerComponent implements OnInit {
           approvalStatus: "drafted",
           timestamp: new Date(),
         };
+        delete tempBlog["user"];
         if (this.mode === "create") {
           this.blogService.createBlog(tempBlog).pipe(take(1)).subscribe();
         } else {

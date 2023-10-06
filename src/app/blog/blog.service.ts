@@ -117,11 +117,13 @@ export class BlogService {
 
   createBlog(blog: Partial<Blog>): Observable<Blog> {
     blog.userId = this.authService.user.id;
+    delete blog["user"];
     return this.http.post<Blog>(this.API_ENDPOINT, blog);
   }
 
   submitDraft(blog: Partial<Blog>): Observable<Blog> {
     const id = blog.id;
+    delete blog["user"];
     return this.http.patch<Blog>(`${this.API_ENDPOINT}/${id}`, blog);
   }
 

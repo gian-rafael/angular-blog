@@ -24,6 +24,7 @@
     "bootstrap": "^4.6.2",
     "core-js": "^2.5.4",
     "jquery": "^3.7.1,",
+    "json-server": "^0.17.4",
     "remarkable": "^2.0.1",
     "rxjs": "6.0.0",
     "zone.js": "^0.8.26"
