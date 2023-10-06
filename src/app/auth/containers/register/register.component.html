@@ -19,7 +19,7 @@
         [class.border-danger]="requiredUsername || takenUsername">
       <div class="d-flex justify-content-end">
         <span>&#8203;</span>
-        <span *ngIf="takenUsername && !requiredUsername" class="text-danger">The username '{{ form.get("user").value }}'
+        <span *ngIf="takenUsername && !requiredUsername" class="text-danger">The username '{{ form.get("username").value }}'
           has been taken.</span>
         <span *ngIf="requiredUsername" class="text-danger">This field is required</span>
       </div>
