@@ -1,12 +1,17 @@
 import { Component, OnInit, SecurityContext } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, Title } from "@angular/platform-browser";
-import { pluck, take, tap } from "rxjs/operators";
-import { Blog } from "src/app/models/blog";
+
+import { of, EMPTY } from "rxjs";
+import { pluck, take, tap, switchMap, catchError } from "rxjs/operators";
 
 import { Remarkable } from "remarkable";
+import { Blog } from "src/app/models/blog";
 import { createBlogCrumbsFromRoot } from "../blog-crumbs/blog-crumbs.component";
+import { AuthService } from "src/app/auth/auth.service";
+import { BlogService } from "../../blog.service";
+import { ToastService } from "src/app/toast.service";
 
 @Component({
   selector: "app-blog-viewer",
@@ -19,6 +24,8 @@ export class BlogViewerComponent implements OnInit {
 
   parser: Remarkable;
 
+  readonly modalId = "confirmationModal";
+
   crumbs = createBlogCrumbsFromRoot();
 
   displayImageContent(url: string): boolean {
@@ -27,6 +34,12 @@ export class BlogViewerComponent implements OnInit {
       return true;
     } catch (error) {}
     return false;
+  }
+
+  get isCurrentUser() {
+    return this.blog$.pipe(
+      switchMap((blog: Blog) => of(blog.userId === this.authService.user.id))
+    );
   }
 
   renderBlogContent(content: string) {
@@ -41,7 +54,11 @@ export class BlogViewerComponent implements OnInit {
     private route: ActivatedRoute,
     private title: Title,
     private titleCase: TitleCasePipe,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authService: AuthService,
+    private blogService: BlogService,
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.parser = new Remarkable();
   }
@@ -57,5 +74,34 @@ export class BlogViewerComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  promptDelete() {
+    // @ts-ignore
+    $(`#${this.modalId}`).modal("show");
+  }
+
+  onPromptCancel() {
+    // @ts-ignore
+    $(`#${this.modalId}`).modal("hide");
+  }
+
+  onDelete() {
+    this.blog$
+      .pipe(
+        take(1),
+        switchMap((blog: Blog) => this.blogService.deleteBlog(blog))
+      )
+      .subscribe(() => {
+        // @ts-ignore
+        $(`#${this.modalId}`).modal("hide");
+        
+        this.router.navigate(["/"]);
+        this.toastService.showMessage({
+          title: "Deleted",
+          description: "Blog deleted successfully",
+          type: "success",
+        });
+      });
   }
 }

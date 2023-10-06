@@ -50,6 +50,33 @@ export class BlogService {
     );
   }
 
+  fetchUserBlogs() {
+    const { id } = this.authService.user;
+    return (
+      this.http
+        .get<Blog[]>(`${this.API_ENDPOINT}?userId=${id}&_expand=user`)
+        // .get<Blog[]>(`${this.API_ENDPOINT}?_expand=user`)
+        .pipe(
+          switchMap((blogs) =>
+            of(
+              blogs.map((blog) => ({
+                ...blog,
+                timestamp: new Date(blog.timestamp),
+              }))
+            )
+          ),
+          catchError((err) => {
+            this.toastService.showMessage({
+              title: "Error",
+              description: "An error has occured while retrieving blogs.",
+              type: "error",
+            });
+            return EMPTY;
+          })
+        )
+    );
+  }
+
   fetchDraftedBlogs(): Observable<Blog[]> {
     const { id } = this.authService.user;
     return (
@@ -121,7 +148,7 @@ export class BlogService {
     return this.http.post<Blog>(this.API_ENDPOINT, blog);
   }
 
-  submitDraft(blog: Partial<Blog>): Observable<Blog> {
+  saveBlog(blog: Partial<Blog>): Observable<Blog> {
     const id = blog.id;
     delete blog["user"];
     return this.http.patch<Blog>(`${this.API_ENDPOINT}/${id}`, blog);
@@ -141,5 +168,9 @@ export class BlogService {
     return this.http
       .patch<any>(`${this.API_ENDPOINT}/${blog.id}`, blog)
       .pipe(tap(() => this.changes.next(null)));
+  }
+
+  deleteBlog(blog: Blog) {
+    return this.http.delete(`${this.API_ENDPOINT}/${blog.id}`);
   }
 }

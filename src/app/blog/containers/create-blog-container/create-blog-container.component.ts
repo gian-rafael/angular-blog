@@ -44,8 +44,9 @@ export class CreateBlogContainerComponent implements OnInit {
   }
 
   crumbs = createBlogCrumbsFromRoot();
-  mode: "create" | "edit" = "create";
+  mode: "create" | "editDraft" | "editBlog" = "create";
   draftCopy?: Blog;
+  blogCopy?: Blog;
   forDiscard: boolean = false;
   submitted: boolean = false;
 
@@ -65,7 +66,7 @@ export class CreateBlogContainerComponent implements OnInit {
         this.form.get("title").setValue(title);
         this.form.get("content").setValue(content);
         this.form.get("imgContentUrl").setValue(imgContentUrl);
-        this.mode = "edit";
+        this.mode = "editDraft";
         this.crumbs = [
           {
             link: "/drafts",
@@ -74,6 +75,23 @@ export class CreateBlogContainerComponent implements OnInit {
           {
             link: "#",
             title: "Edit Draft",
+          },
+        ];
+      } else if (data.blog) {
+        const { title, content, imgContentUrl } = data.blog as Blog;
+        this.blogCopy = { ...data.blog };
+        this.form.get("title").setValue(title);
+        this.form.get("content").setValue(content);
+        this.form.get("imgContentUrl").setValue(imgContentUrl);
+        this.mode = "editBlog";
+        this.crumbs = [
+          {
+            link: "/blogs",
+            title: "Blogs",
+          },
+          {
+            link: "#",
+            title: "Edit Blog",
           },
         ];
       } else {
@@ -101,7 +119,7 @@ export class CreateBlogContainerComponent implements OnInit {
     return validUrl ? null : { invalidUrl: true };
   }
 
-  onSubmit(type: "CREATE" | "DRAFT") {
+  onSubmit(type: "CREATE" | "DRAFT" | "EDIT") {
     const blog: Partial<Blog> = this.form.value;
     this.submitted = true;
     switch (type) {
@@ -116,7 +134,7 @@ export class CreateBlogContainerComponent implements OnInit {
         if (this.mode === "create") {
           this.blogService.createBlog(newBlog).pipe(take(1)).subscribe();
         } else {
-          this.blogService.submitDraft(newBlog).pipe(take(1)).subscribe();
+          this.blogService.saveBlog(newBlog).pipe(take(1)).subscribe();
         }
         this.router.navigate(["/"]);
         this.toastService.showMessage({
@@ -136,12 +154,28 @@ export class CreateBlogContainerComponent implements OnInit {
         if (this.mode === "create") {
           this.blogService.createBlog(tempBlog).pipe(take(1)).subscribe();
         } else {
-          this.blogService.submitDraft(tempBlog).pipe(take(1)).subscribe();
+          this.blogService.saveBlog(tempBlog).pipe(take(1)).subscribe();
         }
         this.router.navigate(["/drafts"]);
         this.toastService.showMessage({
           title: "Blog Drafted",
           description: "Blog has been saved as draft.",
+          type: "success",
+        });
+        break;
+      case "EDIT":
+        const updatedBlog: Blog = {
+          ...this.blogCopy,
+          ...blog,
+          timestamp: new Date(),
+        };
+        console.log(updatedBlog);
+        delete updatedBlog["user"];
+        this.blogService.saveBlog(updatedBlog).pipe(take(1)).subscribe();
+        this.router.navigate(["/"]);
+        this.toastService.showMessage({
+          title: "Blog Updated",
+          description: "Blog has been updated.",
           type: "success",
         });
         break;

@@ -18,6 +18,9 @@ import { BlogDraftsResolve } from "./resolves/blog-drafts.resolve";
 import { BlogGuard } from "./guards/blog.guard";
 import { BlogDraftResolve } from "./resolves/blog-draft.resolve";
 import { CreateBlogGuard } from "./containers/create-blog-container/create-blog.guard";
+import { MyBlogsContainerComponent } from "./containers/my-blogs-container/my-blogs-container.component";
+import { MyBlogsResolve } from "./resolves/my-blogs.resolve";
+import { DeleteConfirmationComponent } from './components/delete-confirmation/delete-confirmation.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,21 @@ const routes: Routes = [
         component: BlogContainerComponent,
         resolve: {
           blogs: BlogListResolve,
+        },
+      },
+      {
+        path: "my-blogs",
+        component: MyBlogsContainerComponent,
+        resolve: {
+          blogs: MyBlogsResolve,
+        },
+      },
+      {
+        path: "blog/edit/:id",
+        component: CreateBlogContainerComponent,
+        canDeactivate: [CreateBlogGuard],
+        resolve: {
+          blog: BlogDraftResolve,
         },
       },
       {
@@ -85,6 +103,8 @@ const routes: Routes = [
     CreateBlogContainerComponent,
     BlogCrumbsComponent,
     BlogDraftsContainerComponent,
+    MyBlogsContainerComponent,
+    DeleteConfirmationComponent,
   ],
   exports: [BlogContainerComponent],
   providers: [
@@ -92,6 +112,7 @@ const routes: Routes = [
     BlogResolve,
     BlogDraftsResolve,
     BlogDraftResolve,
+    MyBlogsResolve,
     BlogGuard,
     CreateBlogGuard,
   ],

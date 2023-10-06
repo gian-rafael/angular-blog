@@ -1,5 +1,5 @@
 <a class="card mb-2 text-decoration-none blog-item"
-  [routerLink]="page === 'blogs' ? ['/blog', blog.id] : ['/drafts', 'edit', blog.id]">
+  [routerLink]="routerLink">
   <div class="card-body p-0">
     <div class="h-100 d-flex justify-content-between align-items-stretch">
       <div class="d-flex flex-column justify-content-around p-3 flex-fill">
@@ -12,7 +12,9 @@
             <span class="text-faded-dark"> {{ blog.timestamp | date: "shortDate" }}</span>
           </ng-container>
           <ng-template #drafts>
-            <span class="text-faded-dark">Last Saved: {{ blog.timestamp | date: "shortDate" }}</span>
+            <span class="text-faded-dark" *ngIf="page === 'drafts'">Last Saved: {{ blog.timestamp | date: "shortDate"
+              }}</span>
+            <span class="text-faded-dark" *ngIf="page === 'my-blogs'"> {{blog.approvalStatus | titlecase}} </span>
           </ng-template>
         </h6>
       </div>

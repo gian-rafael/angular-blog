@@ -1,0 +1,15 @@
+<section class="offset-lg-2 col-12 col-lg-8 px-4 pt-2 p-lg-0">
+  <div class="d-flex justify-content-between align-items-center py-3 py-lg-2">
+    <blog-crumbs [data]="crumbs"></blog-crumbs>
+    <a [routerLink]="['/blog', 'new']" class="btn btn-outline-dark"><i class="fa-solid fa-add mr-2"></i>Create Post</a>
+  </div>
+  <div class="row p-0">
+    <ng-container *ngIf="blogs$ | async as blogs">
+      <div class="col-12" *ngFor="let blog of blogs">
+        <blog-item [blog]="blog" [titleLength]="maxTitleLength | async" page="my-blogs"></blog-item>
+      </div>
+      <h4 class="text-faded-dark w-100 text-center mt-4" *ngIf="blogs.length === 0">There are no blogs to display.</h4>
+    </ng-container>
+    <h4 class="text-faded-dark w-100 text-center mt-4" *ngIf="!(blogs$ | async)">There are no blogs to display.</h4>
+  </div>
+</section>

@@ -4,7 +4,14 @@
       <img [src]="blog.imgContentUrl" [alt]="blog.title" class="blog-image">
     </div>
     <div class="container mt-4">
-      <blog-crumbs [data]="crumbs"></blog-crumbs>
+      <div class="d-flex justify-content-between">
+        <blog-crumbs [data]="crumbs"></blog-crumbs>
+        <ng-container *ngIf="isCurrentUser | async">
+          <div>
+            <a [routerLink]="['/blog', 'edit', blog.id]" class="btn btn-link-primary">Edit</a> | <button class="btn btn-link-primary" (click)="promptDelete()">Delete</button>
+          </div>
+        </ng-container>
+      </div>
       <div>
         <h1>{{ blog.title | titlecase }}</h1>
         <p class="text-primary m-0">By: {{ (blog.user?.displayName | titlecase) || blog.user?.username }}</p>
@@ -20,3 +27,4 @@
     </div>
   </ng-template>
 </article>
+<delete-confirmation [modalId]="modalId" (cancel)="onPromptCancel()" (confirm)="onDelete()"></delete-confirmation>

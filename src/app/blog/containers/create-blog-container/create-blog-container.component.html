@@ -5,7 +5,8 @@
     </div>
     <form [formGroup]="form">
       <h1 *ngIf="mode === 'create'">Create a new Blog</h1>
-      <h1 *ngIf="mode === 'edit'">Edit Draft</h1>
+      <h1 *ngIf="mode === 'editDraft'">Edit Draft</h1>
+      <h1 *ngIf="mode === 'editBlog'">Edit Blog</h1>
       <div class="form-group m-0">
         Blog Title<span class="text-danger">*</span>
         <input type="text" formControlName="title" class="form-control"
@@ -35,13 +36,20 @@
         </div>
       </div>
       <div class="d-flex justify-content-end">
-        <button (click)="onDiscard()" class="btn btn-danger mr-2" type="button">Discard {{ mode === 'edit' ? 'Changes' :
-          ''
+        <button (click)="onDiscard()" class="btn btn-danger mr-2" type="button">Discard {{ mode !== 'editDraft' ?
+          '' :
+          'Changes'
           }}</button>
-        <button [disabled]="form.invalid" (click)="onSubmit('DRAFT')" class="btn btn-outline-dark mr-2"
-          type="button">Save As Draft</button>
-        <button [disabled]="form.invalid" (click)="onSubmit('CREATE')" class="btn btn-dark" type="submit">Create
-          Blog</button>
+        <ng-container *ngIf="['create', 'editDraft'].includes(mode); else editBlog">
+          <button [disabled]="form.invalid" (click)="onSubmit('DRAFT')" class="btn btn-outline-dark mr-2"
+            type="button">Save As Draft</button>
+          <button [disabled]="form.invalid" (click)="onSubmit('CREATE')" class="btn btn-dark" type="submit">Create
+            Blog</button>
+        </ng-container>
+        <ng-template #editBlog>
+          <button [disabled]="form.invalid" (click)="onSubmit('EDIT')" class="btn btn-dark" type="submit">Update
+            Blog</button>
+        </ng-template>
       </div>
     </form>
     <!-- {{form.value | json}} -->
