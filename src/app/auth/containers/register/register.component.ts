@@ -19,6 +19,8 @@ import { User } from "src/app/models/user";
 })
 export class RegisterComponent {
   showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
   invalidUserCredentials: boolean = false;
   submitting: boolean = false;
 
@@ -131,6 +133,10 @@ export class RegisterComponent {
 
   toggleShowPassword(show: boolean) {
     this.showPassword = show;
+  }
+
+  toggleShowConfirmPassword(show: boolean) {
+    this.showConfirmPassword = show;
   }
 
   checkEmail(control: AbstractControl) {

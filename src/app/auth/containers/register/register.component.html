@@ -53,11 +53,11 @@
     <div class="form-group m-0">
       Confirm Password<span class="text-danger">*</span>
       <div class="input-group">
-        <input [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
+        <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
           [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
         <div class="input-group-append">
-          <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowPassword(true)"
-            (mouseleave)="toggleShowPassword(false)" (mouseup)="toggleShowPassword(false)"
+          <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowConfirmPassword(true)"
+            (mouseleave)="toggleShowConfirmPassword(false)" (mouseup)="toggleShowConfirmPassword(false)"
             [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
             <i class="fa-solid fa-eye text-primary"></i>
           </button>
