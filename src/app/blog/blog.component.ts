@@ -4,6 +4,12 @@ import { Router } from "@angular/router";
 import { ViewportService } from "../viewport.service";
 import { Observable } from "rxjs";
 
+interface NavRoute {
+  name: string;
+  path: string;
+  icon: string;
+}
+
 @Component({
   selector: "app-blog",
   templateUrl: "./blog.component.html",
@@ -11,6 +17,24 @@ import { Observable } from "rxjs";
 })
 export class BlogComponent implements OnInit {
   breakpoint: Observable<string>;
+
+  routes: NavRoute[] = [
+    {
+      name: "Home",
+      path: "/home",
+      icon: "house"
+    },
+    {
+      name: "My Blogs",
+      path: "/my-blogs",
+      icon: "file"
+    },
+    {
+      name: "Saved Drafts",
+      path: "/drafts",
+      icon: "scroll"
+    },
+  ]
 
   constructor(
     private authService: AuthService,

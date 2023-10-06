@@ -88,3 +88,8 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
   min-width: 250px;
   max-width: 400px;
 }
+
+.nav-link-active {
+  background: rgba(255, 255, 255, 0.6);
+  color: $dark !important;
+}
