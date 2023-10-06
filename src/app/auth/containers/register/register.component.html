@@ -1,0 +1,81 @@
+<div class="container-fluid d-flex justify-content-center align-items-center">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()"
+    class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-start align-items-stretch">
+    <h1 class="h1 mb-3">Register</h1>
+    <div class="form-group m-0">
+      Email Address
+      <input type="text" formControlName="email" class="form-control"
+        [class.border-danger]="requiredEmail || invalidEmailFormat || emailTaken">
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="invalidEmailFormat && !requiredEmail" class="text-danger">Invalid Email Format</span>
+        <span *ngIf="emailTaken && !requiredEmail" class="text-danger">This email is already in use.</span>
+        <span *ngIf="requiredEmail" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <div class="form-group m-0">
+      Username
+      <input type="text" formControlName="username" class="form-control"
+        [class.border-danger]="requiredUsername || takenUsername">
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="takenUsername && !requiredUsername" class="text-danger">The username '{{ form.get("user").value }}'
+          has been taken.</span>
+        <span *ngIf="requiredUsername" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <div class="form-group m-0">
+      Display Name
+      <input type="text" formControlName="displayName" class="form-control" [class.border-danger]="requiredDisplayName">
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="requiredDisplayName" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <div class="form-group m-0">
+      Password
+      <div class="input-group">
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+          [class.border-danger]="invalidPasswordInput">
+        <div class="input-group-append">
+          <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowPassword(true)"
+            (mouseleave)="toggleShowPassword(false)" (mouseup)="toggleShowPassword(false)"
+            [class.border-danger]="invalidPasswordInput">
+            <i class="fa-solid fa-eye text-primary"></i>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="invalidPasswordInput" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <div class="form-group m-0">
+      Confirm Password
+      <div class="input-group">
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
+          [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
+        <div class="input-group-append">
+          <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowPassword(true)"
+            (mouseleave)="toggleShowPassword(false)" (mouseup)="toggleShowPassword(false)"
+            [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
+            <i class="fa-solid fa-eye text-primary"></i>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <span>&#8203;</span>
+        <span *ngIf="passwordsDoNotMatch && !requiredConfirmPassword" class="text-danger">Passwords do not match.</span>
+        <span *ngIf="requiredConfirmPassword" class="text-danger">This field is required</span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3"
+      [disabled]="form.invalid || submitting">Create Account</button>
+    <!-- <div *ngIf="invalidUserCredentials" class="alert alert-danger text-center" role="alert">
+      Invalid user credentials entered.
+    </div> -->
+  </form>
+  <!-- <div style="position: absolute;">
+    {{ form.value | json }}
+  </div> -->
+</div>

@@ -60,7 +60,6 @@ export class AuthService {
                   if (remember) {
                     this.persistToLocalStorage(user);
                   }
-
                   return of(true);
                 }
                 return of(false);
@@ -77,7 +76,23 @@ export class AuthService {
     this.router.navigate(["/"]);
   }
 
-  persistToLocalStorage(user: User) {
+  register(user: Partial<User>) {
+    return this.http.post(this.API_ENDPOINT, user);
+  }
+
+  private persistToLocalStorage(user: User) {
     localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  userExists(username: string) {
+    return this.http
+      .get(`${this.API_ENDPOINT}?username=${username}`)
+      .pipe(switchMap((users: User[]) => of(users.length > 0)));
+  }
+
+  checkEmail(email: string) {
+    return this.http
+      .get(`${this.API_ENDPOINT}?email=${email}`)
+      .pipe(switchMap((users: User[]) => of(users.length > 0)));
   }
 }

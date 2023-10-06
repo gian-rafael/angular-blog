@@ -12,9 +12,17 @@
       "id": 2,
       "username": "gian_admin",
       "displayName": "Gian Thiam",
-      "email": "gian.thiam01@gmail.com",
+      "email": "gian.thiam02@gmail.com",
       "password": "testpassword",
       "role": "admin"
+    },
+    {
+      "displayName": "Test User",
+      "email": "test@mail.com",
+      "password": "test1234",
+      "username": "test_user",
+      "role": "user",
+      "id": 3
     }
   ],
   "blogs": [
@@ -94,7 +102,7 @@
       "title": "Testing",
       "content": "test content\n\n# Heading 1\n\n## Heading 2",
       "imgContentUrl": "",
-      "approvalStatus": "pending",
+      "approvalStatus": "rejected",
       "timestamp": "2023-10-06T02:11:11.746Z",
       "userId": 1,
       "id": 8,
@@ -105,6 +113,57 @@
         "email": "gian.thiam01@gmail.com",
         "password": "testpassword",
         "role": "user"
+      }
+    },
+    {
+      "title": "Test Blog From Test",
+      "content": "My First blog user test",
+      "imgContentUrl": "",
+      "approvalStatus": "approved",
+      "timestamp": "2023-10-06T04:34:39.816Z",
+      "userId": 3,
+      "id": 9,
+      "user": {
+        "displayName": "Test User",
+        "email": "test@mail.com",
+        "password": "test1234",
+        "username": "test_user",
+        "role": "user",
+        "id": 3
+      }
+    },
+    {
+      "title": "Test Blog From Test",
+      "content": "My First blog user test",
+      "imgContentUrl": "",
+      "approvalStatus": "pending",
+      "timestamp": "2023-10-06T04:37:38.552Z",
+      "userId": 3,
+      "id": 10,
+      "user": {
+        "displayName": "Test User",
+        "email": "test@mail.com",
+        "password": "test1234",
+        "username": "test_user",
+        "role": "user",
+        "id": 3
+      }
+    },
+    {
+      "title": "My First Test Blog",
+      "content": "## Blog from test user",
+      "imgContentUrl": "",
+      "approvalStatus": "approved",
+      "timestamp": "2023-10-06T04:34:43.710Z",
+      "userId": 3,
+      "id": 11,
+      "user": {
+        "displayName": "Test User",
+        "email": "test@mail.com",
+        "password": "test1234",
+        "username": "test_user",
+        "role": "user",
+        "id": 3
       }
     }
   ]

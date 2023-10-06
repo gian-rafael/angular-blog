@@ -8,6 +8,10 @@ export class CreateBlogGuard
   implements CanDeactivate<CreateBlogContainerComponent>
 {
   canDeactivate(component: CreateBlogContainerComponent) {
+    if (component.submitted) {
+      return true;
+    }
+    
     if (component.forDiscard) {
       if (component.form.pristine) {
         return true;

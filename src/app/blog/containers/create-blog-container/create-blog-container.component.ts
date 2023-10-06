@@ -47,6 +47,7 @@ export class CreateBlogContainerComponent implements OnInit {
   mode: "create" | "edit" = "create";
   draftCopy?: Blog;
   forDiscard: boolean = false;
+  submitted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -102,7 +103,7 @@ export class CreateBlogContainerComponent implements OnInit {
 
   onSubmit(type: "CREATE" | "DRAFT") {
     const blog: Partial<Blog> = this.form.value;
-
+    this.submitted = true;
     switch (type) {
       case "CREATE":
         const newBlog: Partial<Blog> = {

@@ -4,6 +4,7 @@ import { AppGuard } from "./guards/app.guard";
 import { LoginComponent } from "./auth/containers/login/login.component";
 import { AuthGuard } from "./auth/guard/auth.guard";
 import { DashboardGuard } from "./dashboard/dashboard.guard";
+import { RegisterComponent } from "./auth/containers/register/register.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: "login",
         component: LoginComponent,
+      },
+      {
+        path: "register",
+        component: RegisterComponent,
       },
     ],
   },

@@ -14,7 +14,6 @@ import { ToastService } from "src/app/toast.service";
 })
 export class LoginComponent implements OnInit {
   showPassword: boolean = false;
-  invalidUserCredentials: boolean = false;
   submitting: boolean = false;
 
   form = this.fb.group({
@@ -43,7 +42,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    this.invalidUserCredentials = false;
     this.submitting = true;
     this.form.disable();
     this.authService
@@ -58,7 +56,11 @@ export class LoginComponent implements OnInit {
             type: "success",
           });
         } else {
-          this.invalidUserCredentials = true;
+          this.toastService.showMessage({
+            title: "Login Error",
+            description: "Invalid User Credentials",
+            type: "error",
+          });
         }
         this.submitting = false;
         this.form.enable();

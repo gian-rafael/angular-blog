@@ -3,7 +3,7 @@
     class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-start align-items-stretch">
     <h1 class="h1 mb-3">Login</h1>
     <div class="form-group m-0">
-      Username or Email
+      Username
       <input type="text" formControlName="user" class="form-control" [class.border-danger]="invalidUserInput">
       <div class="d-flex justify-content-end">
         <span>&#8203;</span>
@@ -34,11 +34,5 @@
     </div>
     <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3"
       [disabled]="form.invalid || submitting">Login</button>
-    <div *ngIf="invalidUserCredentials" class="alert alert-danger text-center" role="alert">
-      Invalid user credentials entered.
-    </div>
   </form>
-  <!-- <div style="position: absolute;">
-    {{ form.value | json }}
-  </div> -->
 </div>

@@ -63,8 +63,8 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
     this.closeModal();
     this.toastService.showMessage({
       type: "success",
-      description: "Rejected",
-      title: "Blog has been rejected successfully.",
+      title: "Rejected",
+      description: "Blog has been rejected successfully.",
     });
   }
 

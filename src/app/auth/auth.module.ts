@@ -6,9 +6,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { LoginComponent } from "./containers/login/login.component";
 import { ApiModule } from "../api/api.module";
+import { RegisterComponent } from './containers/register/register.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule, ApiModule],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
 })
 export class AuthModule {}
