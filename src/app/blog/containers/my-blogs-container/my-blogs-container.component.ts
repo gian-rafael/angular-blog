@@ -27,7 +27,7 @@ export class MyBlogsContainerComponent implements OnInit {
 
   ngOnInit() {
     this.blogs$.subscribe(console.log);
-    this.title.setTitle("Home");
+    this.title.setTitle("My Blogs");
     this.maxTitleLength = this.vp.breakpoint$.pipe(
       switchMap((bp) => {
         let length = 12;

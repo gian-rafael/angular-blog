@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
 import { BlogService } from "src/app/blog/blog.service";
@@ -25,10 +26,12 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   constructor(
     private blogService: BlogService,
     private vp: ViewportService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private title: Title
   ) {}
 
   ngOnInit() {
+    this.title.setTitle("Dashboard");
     this.blogs$ = this.blogService.fetchPendingBlogs();
     this.breakpoint$ = this.vp.breakpoint$;
   }

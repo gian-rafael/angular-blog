@@ -6,6 +6,7 @@ import { take } from "rxjs/operators";
 
 import { AuthService } from "../../auth.service";
 import { ToastService } from "src/app/toast.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-login",
@@ -36,10 +37,13 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private title: Title
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.title.setTitle("Login");
+  }
 
   onSubmit() {
     this.submitting = true;

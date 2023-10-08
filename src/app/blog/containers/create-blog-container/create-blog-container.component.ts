@@ -9,6 +9,7 @@ import { ToastService } from "src/app/toast.service";
 import { AuthService } from "src/app/auth/auth.service";
 import { User } from "src/app/models/user";
 import { Observable, of } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-create-blog-container",
@@ -69,7 +70,8 @@ export class CreateBlogContainerComponent implements OnInit {
     private blogService: BlogService,
     private router: Router,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private title: Title
   ) {}
 
   ngOnInit() {
@@ -81,6 +83,7 @@ export class CreateBlogContainerComponent implements OnInit {
         this.form.get("content").setValue(content);
         this.form.get("imgContentUrl").setValue(imgContentUrl);
         this.mode = "editDraft";
+        this.title.setTitle("Edit Draft");
         this.crumbs = [
           {
             link: "/drafts",
@@ -98,6 +101,7 @@ export class CreateBlogContainerComponent implements OnInit {
         this.form.get("content").setValue(content);
         this.form.get("imgContentUrl").setValue(imgContentUrl);
         this.mode = "editBlog";
+        this.title.setTitle("Edit Blog");
         this.crumbs = [
           {
             link: "/blogs",
@@ -114,6 +118,7 @@ export class CreateBlogContainerComponent implements OnInit {
           title: "Create New Blog",
           link: "#",
         });
+        this.title.setTitle("Create New Blog");
       }
     });
   }

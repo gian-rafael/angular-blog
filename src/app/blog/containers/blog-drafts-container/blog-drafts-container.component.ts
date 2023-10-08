@@ -28,7 +28,7 @@ export class BlogDraftsContainerComponent {
   ) {}
 
   ngOnInit() {
-    this.title.setTitle("Home");
+    this.title.setTitle("Saved Drafts");
     this.maxTitleLength = this.vp.breakpoint$.pipe(
       switchMap((bp) => {
         let length = 12;

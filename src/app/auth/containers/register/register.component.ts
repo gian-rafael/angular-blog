@@ -11,6 +11,7 @@ import { ToastService } from "src/app/toast.service";
 import { AuthService } from "../../auth.service";
 import { of } from "rxjs";
 import { User } from "src/app/models/user";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-register",
@@ -89,10 +90,12 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private title: Title
   ) {}
 
   ngOnInit() {
+    this.title.setTitle("Register")
     this.form
       .get("confirmPassword")
       .setValidators([
