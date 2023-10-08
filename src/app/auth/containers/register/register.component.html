@@ -5,7 +5,7 @@
     <!-- Email Address -->
     <div class="form-group m-0">
       Email Address<span class="text-danger">*</span>
-      <input type="text" formControlName="email" class="form-control"
+      <input tabindex="1" type="text" formControlName="email" class="form-control"
         [class.border-danger]="requiredEmail || invalidEmailFormat || emailTaken">
       <div class="d-flex justify-content-end">
         <span>&#8203;</span>
@@ -17,7 +17,8 @@
     <!-- Display Name -->
     <div class="form-group m-0">
       Display Name<span class="text-danger">*</span>
-      <input type="text" formControlName="displayName" class="form-control" [class.border-danger]="requiredDisplayName">
+      <input tabindex="2" type="text" formControlName="displayName" class="form-control"
+        [class.border-danger]="requiredDisplayName">
       <div class="d-flex justify-content-end">
         <span>&#8203;</span>
         <span *ngIf="requiredDisplayName" class="text-danger">This field is required</span>
@@ -26,7 +27,7 @@
     <!-- Username -->
     <div class="form-group m-0">
       Username<span class="text-danger">*</span>
-      <input type="text" formControlName="username" class="form-control"
+      <input tabindex="3" type="text" formControlName="username" class="form-control"
         [class.border-danger]="requiredUsername || takenUsername">
       <div class="d-flex justify-content-end">
         <span>&#8203;</span>
@@ -40,7 +41,7 @@
     <div class="form-group m-0">
       Password<span class="text-danger">*</span>
       <div class="input-group">
-        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+        <input tabindex="4" [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
           [class.border-danger]="invalidPasswordInput">
         <div class="input-group-append">
           <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowPassword(true)"
@@ -59,8 +60,8 @@
     <div class="form-group m-0">
       Confirm Password<span class="text-danger">*</span>
       <div class="input-group">
-        <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
-          [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
+        <input tabindex="5" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword"
+          class="form-control" [class.border-danger]="requiredConfirmPassword || passwordsDoNotMatch">
         <div class="input-group-append">
           <button type="button" class="input-group-text btn btn-light" (mousedown)="toggleShowConfirmPassword(true)"
             (mouseleave)="toggleShowConfirmPassword(false)" (mouseup)="toggleShowConfirmPassword(false)"
@@ -75,7 +76,7 @@
         <span *ngIf="requiredConfirmPassword" class="text-danger">This field is required</span>
       </div>
     </div>
-    <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3"
+    <button type="submit" class="btn btn-dark justify-self-end text-uppercase font-weight-bold mb-3" tabindex="6"
       [disabled]="form.invalid || submitting">Create Account</button>
     <p class="m-0 text-left">Already have an account? <a [routerLink]="['/auth', 'login']" class="text-primary">Login
         Here</a></p>
