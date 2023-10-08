@@ -1,4 +1,4 @@
-<div class="container-fluid px-0 pb-4">
+<div class="container-fluid px-0 pb-4" *ngIf="!isPreviewMode; else preview">
   <div class="container">
     <div class="py-2">
       <blog-crumbs [data]="crumbs"></blog-crumbs>
@@ -47,6 +47,8 @@
           '' :
           'Changes'
           }}</button>
+        <button [disabled]="form.invalid" class="btn btn-outline-dark mr-2" type="button" (click)="showPreview()">Show
+          Preview</button>
         <ng-container *ngIf="['create', 'editDraft'].includes(mode); else editBlog">
           <button [disabled]="form.invalid" (click)="onSubmit('DRAFT')" class="btn btn-outline-dark mr-2"
             type="button">Save As Draft</button>
@@ -62,4 +64,15 @@
     <!-- {{form.value | json}} -->
   </div>
 </div>
+<ng-template #preview>
+  <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+      <button class="btn btn-danger navbar-brand" (click)="closePreview()">
+        <i class="fa-solid fa-times mr-2"></i>
+        Exit Preview Mode
+      </button>
+    </nav>
+    <blog-viewer [blog$]="blogPreview"></blog-viewer>
+  </div>
+</ng-template>
 <blog-content-help [modalId]="helpModalId"></blog-content-help>

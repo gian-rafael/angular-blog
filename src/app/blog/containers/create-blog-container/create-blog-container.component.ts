@@ -1,11 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, Validators } from "@angular/forms";
-import { Blog } from "src/app/models/blog";
+import { Blog, BlogWithAuthor } from "src/app/models/blog";
 import { BlogService } from "../../blog.service";
 import { take } from "rxjs/operators";
 import { createBlogCrumbsFromRoot } from "../../components/blog-crumbs/blog-crumbs.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastService } from "src/app/toast.service";
+import { AuthService } from "src/app/auth/auth.service";
+import { User } from "src/app/models/user";
+import { Observable, of } from "rxjs";
 
 @Component({
   selector: "app-create-blog-container",
@@ -50,9 +53,13 @@ export class CreateBlogContainerComponent implements OnInit {
   forDiscard: boolean = false;
   submitted: boolean = false;
 
-  readonly helpModalId: string= 'blogHelpModal';
+  isPreviewMode: boolean = false;
+  blogPreview: Observable<Partial<BlogWithAuthor>>;
+
+  readonly helpModalId: string = "blogHelpModal";
 
   get helpModal() {
+    // @ts-ignore
     return $(`#${this.helpModalId}`);
   }
 
@@ -61,7 +68,8 @@ export class CreateBlogContainerComponent implements OnInit {
     private fb: FormBuilder,
     private blogService: BlogService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -199,6 +207,22 @@ export class CreateBlogContainerComponent implements OnInit {
 
   showHelpModal() {
     // @ts-ignore
-    this.helpModal.modal('show');
+    this.helpModal.modal("show");
+  }
+
+  showPreview() {
+    this.isPreviewMode = true;
+    this.blogPreview = of({
+      content: this.form.get("content").value,
+      title: this.form.get("title").value,
+      imgContentUrl: this.form.get("imgContentUrl").value,
+      timestamp: new Date(),
+      user: this.authService.user as User,
+    });
+  }
+
+  closePreview() {
+    this.isPreviewMode = false;
+    this.blogPreview = null;
   }
 }

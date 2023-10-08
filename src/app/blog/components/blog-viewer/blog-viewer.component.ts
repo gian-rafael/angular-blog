@@ -1,26 +1,26 @@
-import { Component, OnInit, SecurityContext } from "@angular/core";
+import { Component, OnInit, SecurityContext, Input } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, Title } from "@angular/platform-browser";
 
-import { of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { pluck, take, tap, switchMap } from "rxjs/operators";
 import { Remarkable } from "remarkable";
 
-import { Blog } from "src/app/models/blog";
+import { Blog, BlogWithAuthor } from "src/app/models/blog";
 import { createBlogCrumbsFromRoot } from "../blog-crumbs/blog-crumbs.component";
 import { AuthService } from "src/app/auth/auth.service";
 import { BlogService } from "../../blog.service";
 import { ToastService } from "src/app/toast.service";
 
 @Component({
-  selector: "app-blog-viewer",
+  selector: "blog-viewer",
   templateUrl: "./blog-viewer.component.html",
   styleUrls: ["./blog-viewer.component.scss"],
   providers: [TitleCasePipe],
 })
 export class BlogViewerComponent implements OnInit {
-  blog$ = this.route.data.pipe(pluck("blog"));
+  @Input() blog$: Observable<BlogWithAuthor> = this.route.data.pipe(pluck("blog"));
 
   parser: Remarkable;
 
