@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, Title } from "@angular/platform-browser";
 
 import { Observable, of } from "rxjs";
-import { pluck, take, tap, switchMap } from "rxjs/operators";
+import { pluck, take, tap, switchMap, map, catchError } from "rxjs/operators";
 import { Remarkable } from "remarkable";
 
 import { Blog, BlogWithAuthor } from "src/app/models/blog";
@@ -20,7 +20,9 @@ import { ToastService } from "src/app/toast.service";
   providers: [TitleCasePipe],
 })
 export class BlogViewerComponent implements OnInit {
-  @Input() blog$: Observable<BlogWithAuthor> = this.route.data.pipe(pluck("blog"));
+  @Input() blog$: Observable<BlogWithAuthor> = this.route.data.pipe(
+    pluck("blog")
+  );
 
   parser: Remarkable;
 
@@ -102,6 +104,37 @@ export class BlogViewerComponent implements OnInit {
           description: "Blog deleted successfully",
           type: "success",
         });
+      });
+  }
+
+  onResubmit() {
+    this.blog$
+      .pipe(
+        take(1),
+        map((blog) => {
+          const tempBlog = { ...blog };
+          delete tempBlog["user"];
+          tempBlog.approvalStatus = "pending";
+          return tempBlog;
+        }),
+        switchMap((blog) => this.blogService.saveBlog(blog)),
+        switchMap(() => of(true)),
+        catchError(() => of(false))
+      )
+      .subscribe((val) => {
+        if (val) {
+          this.toastService.showMessage({
+            description: "Your submission is being reviewed.",
+            title: "Blog Resubmitted",
+            type: "success",
+          });
+        } else {
+          this.toastService.showMessage({
+            description: "We are unable to process your request at the moment.",
+            title: "An error has occured",
+            type: "error",
+          });
+        }
       });
   }
 }

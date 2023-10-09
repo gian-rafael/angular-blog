@@ -158,7 +158,7 @@ export class CreateBlogContainerComponent implements OnInit {
         this.router.navigate(["/"]);
         this.toastService.showMessage({
           title: "Blog Submitted",
-          description: "Your post is being reviewed.",
+          description: "Your submission is being reviewed.",
           type: "success",
         });
         break;
@@ -188,7 +188,6 @@ export class CreateBlogContainerComponent implements OnInit {
           ...blog,
           timestamp: new Date(),
         };
-        console.log(updatedBlog);
         delete updatedBlog["user"];
         this.blogService.saveBlog(updatedBlog).pipe(take(1)).subscribe();
         this.router.navigate(["/"]);

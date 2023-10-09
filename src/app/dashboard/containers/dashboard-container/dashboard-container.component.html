@@ -1,12 +1,15 @@
 <div class="container-fluid row px-md-5 pt-4 m-0">
   <div class="row col-12 p-0 mx-0 mb-4">
-    <div class="col-12 text-center offset-md-3 col-md-9">
+    <!-- <div class="col-12 text-center offset-md-3 col-md-9">
       <h1> {{ currentTab === "pending" ? "Pending" : "Rejected" }} Blogs</h1>
+    </div> -->
+    <div class="col-12 text-center">
+      <h1> Pending Blogs</h1>
     </div>
   </div>
   <div class="row col-12 p-0 m-0">
     <!-- <div class="col-12 col-md-3 d-flex flex-column justify-content-start align-items-stretch"> -->
-    <div
+    <!-- <div
       [ngClass]="{ 'col-12 col-md-3 d-flex flex-column justify-content-start align-items-stretch': ['xxl', 'xl', 'lg', 'md'].includes(breakpoint$ | async), 'btn-group w-100 mb-4': ['sm', 'xs'].includes(breakpoint$ | async) }">
       <button class="btn mb-md-2" (click)="setCurrentTab('pending')"
         [ngClass]="{'btn-dark': currentTab === 'pending', 'btn-outline-dark': currentTab !== 'pending'}">Pending
@@ -14,8 +17,8 @@
       <button class="btn" (click)="setCurrentTab('rejected')"
         [ngClass]="{'btn-dark': currentTab === 'rejected', 'btn-outline-dark': currentTab !== 'rejected'}">Rejected
         Blogs</button>
-    </div>
-    <div class="col-12 col-md-9">
+    </div> -->
+    <div class="col-12">
       <ng-container *ngIf="blogs$ | async as blogs">
         <pending-blog-item *ngFor="let blog of blogs" [blog]="blog" (select)="onSelect(blog)"></pending-blog-item>
         <h4 class="text-faded-dark w-100 text-center" *ngIf="blogs.length === 0">There are no blogs to display.</h4>

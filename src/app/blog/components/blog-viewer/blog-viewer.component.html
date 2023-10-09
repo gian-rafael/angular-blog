@@ -10,8 +10,11 @@
         <blog-crumbs [data]="crumbs"></blog-crumbs>
         <ng-container *ngIf="isCurrentUser | async">
           <div>
-            <a [routerLink]="['/blog', 'edit', blog.id]" class="btn btn-link-primary">Edit</a> | <button
-              class="btn btn-link-primary" (click)="promptDelete()">Delete</button>
+            <a [routerLink]="['/blog', 'edit', blog.id]" class="btn btn-link-primary">Edit</a> 
+            | <button class="btn btn-link-primary" (click)="promptDelete()">Delete</button>
+            <ng-container *ngIf="blog.approvalStatus === 'rejected'">
+              | <button class="btn btn-link-primary" (click)="onResubmit()">Resubmit</button>
+            </ng-container>
           </div>
         </ng-container>
       </div>

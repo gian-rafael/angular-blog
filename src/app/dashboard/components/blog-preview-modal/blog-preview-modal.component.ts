@@ -41,7 +41,7 @@ export class BlogPreviewModalComponent {
   private parser: Remarkable;
 
   constructor(private sanitizer: DomSanitizer) {
-    this.parser = new Remarkable();
+    this.parser = new Remarkable({ html: true });
   }
 
   onReject() {
