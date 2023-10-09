@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 import { switchMap, take } from "rxjs/operators";
 import { ToastService } from "src/app/toast.service";
 import { AuthService } from "../../auth.service";
-import { of } from "rxjs";
+import { of, timer } from "rxjs";
 import { User } from "src/app/models/user";
 import { Title } from "@angular/platform-browser";
 
@@ -95,7 +95,7 @@ export class RegisterComponent {
   ) {}
 
   ngOnInit() {
-    this.title.setTitle("Register")
+    this.title.setTitle("Register");
     this.form
       .get("confirmPassword")
       .setValidators([
@@ -143,7 +143,8 @@ export class RegisterComponent {
   }
 
   checkEmail(control: AbstractControl) {
-    return this.authService.checkEmail(control.value).pipe(
+    return timer(500).pipe(
+      switchMap(() => this.authService.checkEmail(control.value)),
       switchMap((exists) => {
         if (exists) {
           return of({ emailTaken: true });
@@ -154,7 +155,8 @@ export class RegisterComponent {
   }
 
   checkUsername(control: AbstractControl) {
-    return this.authService.userExists(control.value).pipe(
+    return timer(500).pipe(
+      switchMap(() => this.authService.userExists(control.value)),
       switchMap((exists) => {
         if (exists) {
           return of({ usernameTaken: true });
