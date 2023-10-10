@@ -53,6 +53,7 @@ export class CreateBlogContainerComponent implements OnInit {
   blogCopy?: Blog;
   forDiscard: boolean = false;
   submitted: boolean = false;
+  submitOnUpdate: boolean = false;
 
   isPreviewMode: boolean = false;
   blogPreview: Observable<Partial<BlogWithAuthor>>;
@@ -138,6 +139,11 @@ export class CreateBlogContainerComponent implements OnInit {
     return validUrl ? null : { invalidUrl: true };
   }
 
+  updateAndSubmit() {
+    this.submitOnUpdate = true;
+    this.onSubmit("EDIT");
+  }
+
   onSubmit(type: "CREATE" | "DRAFT" | "EDIT") {
     const blog: Partial<Blog> = this.form.value;
     this.submitted = true;
@@ -188,14 +194,27 @@ export class CreateBlogContainerComponent implements OnInit {
           ...blog,
           timestamp: new Date(),
         };
+        if (
+          this.blogCopy.approvalStatus === "approved" ||
+          this.submitOnUpdate
+        ) {
+          updatedBlog.approvalStatus = "pending";
+        }
         delete updatedBlog["user"];
         this.blogService.saveBlog(updatedBlog).pipe(take(1)).subscribe();
         this.router.navigate(["/"]);
+        
+        let toastDescription =
+          updatedBlog.approvalStatus === "pending"
+            ? "Your submission is being reviewed."
+            : "Your blog has been updated.";
+            
         this.toastService.showMessage({
           title: "Blog Updated",
-          description: "Blog has been updated.",
+          description: toastDescription,
           type: "success",
         });
+        this.submitOnUpdate = false;
         break;
     }
   }

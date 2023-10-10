@@ -58,6 +58,7 @@
         <ng-template #editBlog>
           <button [disabled]="form.invalid" (click)="onSubmit('EDIT')" class="btn btn-dark" type="submit">Update
             Blog</button>
+          <button *ngIf="blogCopy.approvalStatus === 'rejected'" [disabled]="form.invalid" (click)="updateAndSubmit()" class="btn btn-dark ml-2" type="submit">Update and Submit</button>
         </ng-template>
       </div>
     </form>
